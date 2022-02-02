@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+    - ./files :/tmp/files
+    - ./docker:/docker-entrypoint-initdb.d
+    environment:
+      # MYSQL_DATABASE: db_production
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - '8080:80'
