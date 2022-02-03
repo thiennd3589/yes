@@ -1,3 +1,4 @@
+import { POST_STATUS } from "../helper/post-status";
 import Post from "../models/post";
 import { handleCatchedError } from "../modules/utils";
 import PostService from "../services/bussiness/post.service";
@@ -14,7 +15,65 @@ class PostController {
 
   async getAll(req, res) {
     try {
-      const posts = await Post.findAll();
+      const posts = await PostService.GetList();
+      return res.json(posts);
+    } catch (err) {
+      handleCatchedError(res, err.message);
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const post = await PostService.Update(req?.body, req?.userId);
+      return res.json(post);
+    } catch (err) {
+      handleCatchedError(res, err.message);
+    }
+  }
+
+  async deleteSingle(req, res) {
+    const id = req.params.id;
+    try {
+      await PostService.Delete([id]);
+      return res.json();
+    } catch (err) {
+      handleCatchedError(res, err.message);
+    }
+  }
+
+  async deleteMulti(req, res) {
+    const ids = req.body.ids;
+    try {
+      await PostService.Delete(ids);
+      return res.json();
+    } catch (err) {
+      handleCatchedError(res, err.message);
+    }
+  }
+
+  async publish(req, res) {
+    const id = req.params.id;
+    try {
+      await PostService.Publish(id, req?.userId);
+      return res.json();
+    } catch (err) {
+      handleCatchedError(res, err.message);
+    }
+  }
+
+  async undoPublish(req, res) {
+    const id = req.params.id;
+    try {
+      await PostService.UndoPublished(id);
+      return res.json();
+    } catch (err) {
+      handleCatchedError(res, err.message);
+    }
+  }
+
+  async getPublished(req, res) {
+    try {
+      const posts = await PostService.GetList(null, POST_STATUS.PUBLISHED);
       return res.json(posts);
     } catch (err) {
       handleCatchedError(res, err.message);

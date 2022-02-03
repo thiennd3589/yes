@@ -1,11 +1,12 @@
-import AuthController from '../../controllers/AuthController'
-import UserController from '../../controllers/UserController'
+import AuthController from "../../controllers/AuthController";
+import PostController from "../../controllers/PostController";
+import UserController from "../../controllers/UserController";
 
 export default (routes) => {
-  routes
-    .post('/authenticate', AuthController.authenticate)
-    .post('/users', UserController.store)
-}
+  routes.post("/authenticate", AuthController.authenticate).post("/users", UserController.store);
+
+  routes.get("/posts/published", PostController.getPublished);
+};
 /**
  * @swagger
  * definitions:

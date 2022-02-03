@@ -1,4 +1,5 @@
 import Sequelize from "sequelize";
+import { POST_STATUS } from "../helper/post-status";
 import db from "../services/database";
 
 module.exports = ((sequelize, DataTypes) => {
@@ -13,7 +14,7 @@ module.exports = ((sequelize, DataTypes) => {
       updatedBy: DataTypes.STRING,
       status: {
         type: DataTypes.INTEGER,
-        defaultValue: 1,
+        defaultValue: POST_STATUS.CREATED,
       },
       publishedDate: DataTypes.DATE,
       publishedBy: DataTypes.STRING,

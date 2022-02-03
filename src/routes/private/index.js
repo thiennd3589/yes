@@ -6,7 +6,14 @@ export default (routes) => {
   routes.use(AuthMiddleware);
 
   routes.delete("/users/:id", UserController.delete).get("/users", UserController.index).put("/users/:id", UserController.update);
-  routes.post("/posts", PostController.createPost).get("/posts", PostController.getAll);
+  routes
+    .post("/posts", PostController.createPost)
+    .get("/posts", PostController.getAll)
+    .put("/posts", PostController.update)
+	.put("/posts/:id/publish", PostController.publish)
+	.put("/posts/:id/undo-publish", PostController.undoPublish)
+    .delete("/posts/:id", PostController.deleteSingle)
+    .delete("/posts", PostController.deleteMulti);
 };
 /**
  * @swagger
