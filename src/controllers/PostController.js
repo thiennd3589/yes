@@ -1,5 +1,4 @@
 import { POST_STATUS } from "../helper/post-status";
-import Post from "../models/post";
 import { handleCatchedError } from "../modules/utils";
 import PostService from "../services/bussiness/post.service";
 

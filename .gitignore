@@ -5,3 +5,4 @@ __tests__/coverage/
 dist/
 files/
 node_modules/
+logs/
