@@ -42,6 +42,18 @@ const PostService = {
       },
     });
   },
+  async Get(id, status) {
+    const condition = {
+      where: {
+        id,
+      },
+    };
+	if (status) {
+		condition.where.status = status;
+	}
+    const rslt = await Post.findOne(condition);
+	return rslt;
+  },
   async GetList(type, status) {
     const condition = {
       where: {},

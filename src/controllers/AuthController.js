@@ -12,7 +12,7 @@ class AuthController {
     const attributes = ['id', 'name', 'password']
     const user = await User
       .findOne({ where: { email }, attributes })
-      .catch(err => handleCatchedError(res, err.message, 400))
+      .catch(err => handleCatchedError(req, res, err.message, 400))
 
     if (!user) {
       return res.status(404).json({ message: 'User not found.' })

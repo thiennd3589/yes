@@ -9,6 +9,7 @@ export default (routes) => {
   routes
     .post("/posts", PostController.createPost)
     .get("/posts/:typeId", PostController.getAll)
+	.get("/post/:id", PostController.get)
     .put("/posts", PostController.update)
 	.put("/posts/:id/publish", PostController.publish)
 	.put("/posts/:id/undo-publish", PostController.undoPublish)

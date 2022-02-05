@@ -19,10 +19,10 @@ describe('Testing util functions', () => {
     let response
     const res = new ResMock()
 
-    response = Utils.handleCatchedError(res, 'This is just a test.')
+    response = Utils.handleCatchedError(null, res, 'This is just a test.')
     expect(response.status).toBe(500)
 
-    response = Utils.handleCatchedError(res, 'This is just a test.', 401)
+    response = Utils.handleCatchedError(null, res, 'This is just a test.', 401)
     expect(response.status).toBe(401)
   })
 })

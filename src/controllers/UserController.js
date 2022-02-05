@@ -11,7 +11,7 @@ class UserController {
       return user
         .destroy()
         .then(() => res.json({ deleted: true }))
-        .catch((err) => handleCatchedError(res, err.message));
+        .catch((err) => handleCatchedError(req, res, err.message));
     }
 
     return res.json({
@@ -29,7 +29,7 @@ class UserController {
   async store(req, res) {
     const password = req.body?.password;
     const encryptPassword = await bcrypt.hash(password, 8);
-    const user = await User.create({ ...req.body, password: encryptPassword }).catch((err) => handleCatchedError(res, err.message, 400));
+    const user = await User.create({ ...req.body, password: encryptPassword }).catch((err) => handleCatchedError(req, res, err.message, 400));
 
     return res.json(user);
   }
@@ -38,7 +38,7 @@ class UserController {
     const { id } = req.params;
     await User.update({ ...req.body }, { where: { id } })
       .then((result) => res.json({ updated: true }))
-      .catch((err) => handleCatchedError(res, err.message, 400));
+      .catch((err) => handleCatchedError(req, res, err.message, 400));
   }
 }
 

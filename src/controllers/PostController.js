@@ -1,5 +1,4 @@
 import { CATEGORY } from "../helper/category";
-import logger from "../helper/logger";
 import { POST_STATUS } from "../helper/post-status";
 import { handleCatchedError } from "../modules/utils";
 import PostService from "../services/bussiness/post.service";
@@ -10,7 +9,31 @@ class PostController {
       const post = await PostService.Add(req?.body, req?.userId);
       return res.json(post);
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
+    }
+  }
+
+  async get(req, res) {
+    try {
+      const post = await PostService.Get(req?.params?.id);
+      if (post === null) {
+        handleCatchedError(req, res, "Not found", 404);
+      }
+      return res.json(post);
+    } catch (err) {
+      handleCatchedError(req, res, err.message);
+    }
+  }
+
+  async getPublishedPost(req, res) {
+    try {
+      const post = await PostService.Get(req?.params?.id, POST_STATUS.PUBLISHED);
+      if (post === null) {
+        handleCatchedError(req, res, "Not found", 404);
+      }
+      return res.json(post);
+    } catch (err) {
+      handleCatchedError(req, res, err.message);
     }
   }
 
@@ -24,7 +47,7 @@ class PostController {
       const posts = await PostService.GetList(type);
       return res.json(posts);
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
     }
   }
 
@@ -33,7 +56,7 @@ class PostController {
       const post = await PostService.Update(req?.body, req?.userId);
       return res.json(post);
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
     }
   }
 
@@ -43,7 +66,7 @@ class PostController {
       await PostService.Delete([id]);
       return res.json();
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
     }
   }
 
@@ -53,7 +76,7 @@ class PostController {
       await PostService.Delete(ids);
       return res.json();
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
     }
   }
 
@@ -63,7 +86,7 @@ class PostController {
       await PostService.Publish(id, req?.userId);
       return res.json();
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
     }
   }
 
@@ -73,7 +96,7 @@ class PostController {
       await PostService.UndoPublished(id);
       return res.json();
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
     }
   }
 
@@ -87,7 +110,7 @@ class PostController {
       const posts = await PostService.GetList(type, POST_STATUS.PUBLISHED);
       return res.json(posts);
     } catch (err) {
-      handleCatchedError(res, err.message);
+      handleCatchedError(req, res, err.message);
     }
   }
 }

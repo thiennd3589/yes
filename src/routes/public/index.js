@@ -5,7 +5,8 @@ import UserController from "../../controllers/UserController";
 export default (routes) => {
   routes.post("/authenticate", AuthController.authenticate).post("/users", UserController.store);
 
-  routes.get("/posts/:typeId/published", PostController.getPublished);
+  routes.get("/posts/:typeId/published", PostController.getPublished)
+  		.get("/post/:id/published", PostController.getPublishedPost);
 };
 /**
  * @swagger
