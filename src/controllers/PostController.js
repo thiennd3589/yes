@@ -1,3 +1,5 @@
+import { CATEGORY } from "../helper/category";
+import logger from "../helper/logger";
 import { POST_STATUS } from "../helper/post-status";
 import { handleCatchedError } from "../modules/utils";
 import PostService from "../services/bussiness/post.service";
@@ -14,7 +16,12 @@ class PostController {
 
   async getAll(req, res) {
     try {
-      const posts = await PostService.GetList();
+      const typeId = req.params?.typeId;
+      let type = typeId;
+      if (typeId == CATEGORY.ALL) {
+        type = null;
+      }
+      const posts = await PostService.GetList(type);
       return res.json(posts);
     } catch (err) {
       handleCatchedError(res, err.message);
@@ -72,7 +79,12 @@ class PostController {
 
   async getPublished(req, res) {
     try {
-      const posts = await PostService.GetList(null, POST_STATUS.PUBLISHED);
+      const typeId = req.params?.typeId;
+      let type = typeId;
+      if (typeId === CATEGORY.ALL) {
+        type = null;
+      }
+      const posts = await PostService.GetList(type, POST_STATUS.PUBLISHED);
       return res.json(posts);
     } catch (err) {
       handleCatchedError(res, err.message);

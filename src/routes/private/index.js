@@ -8,7 +8,7 @@ export default (routes) => {
   routes.delete("/users/:id", UserController.delete).get("/users", UserController.index).put("/users/:id", UserController.update);
   routes
     .post("/posts", PostController.createPost)
-    .get("/posts", PostController.getAll)
+    .get("/posts/:typeId", PostController.getAll)
     .put("/posts", PostController.update)
 	.put("/posts/:id/publish", PostController.publish)
 	.put("/posts/:id/undo-publish", PostController.undoPublish)

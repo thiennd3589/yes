@@ -16,7 +16,7 @@ class UserController {
 
     return res.json({
       deleted: false,
-      message: "Usuário não encontrado.",
+      message: "Không xoá được",
     });
   }
 

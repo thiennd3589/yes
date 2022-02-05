@@ -6,3 +6,4 @@ dist/
 files/
 node_modules/
 logs/
+*.log

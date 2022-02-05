@@ -18,6 +18,7 @@ module.exports = ((sequelize, DataTypes) => {
       },
       publishedDate: DataTypes.DATE,
       publishedBy: DataTypes.STRING,
+	  type: DataTypes.INTEGER,
     },
     {}
   );
